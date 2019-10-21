@@ -9,14 +9,9 @@ def run():
         command = input('Command: ')
 
         # get commands for a specific tamagotchi
-        if command.startswith('create') or command.startswith('feed') or command.startswith('play'):
-            args = command.split(' ')
-
-            # check number of arguments (Tamagotchi names will not contain spaces)
-            if len(args) != 2:
-                print('Invalid command.')
-                continue
-
+        # also, check number of arguments (Tamagotchi names will not contain spaces)
+        args = command.split(' ')
+        if len(args) == 2:
             cmd = args[0]
             name = args[1]
 
@@ -33,17 +28,15 @@ def run():
                         continue
                 tamagotchis[name] = Tamagotchi(name)
             elif cmd == 'feed':
-                if name in tamagotchis:
-                    tamagotchis[name].feed()
-                else:
+                if name not in tamagotchis:
                     print('No Tamagotchi with that name.')
                     continue
+                tamagotchis[name].feed()
             elif cmd == 'play':
-                if name in tamagotchis:
-                    tamagotchis[name].play()
-                else:
+                if name not in tamagotchis:
                     print('No Tamagotchi with that name.')
                     continue
+                tamagotchis[name].play()
 
             # After each valid command, print out the current state of each Tamagotchi in name sorted order, and then increment age of all Tamagotchis
             output()
